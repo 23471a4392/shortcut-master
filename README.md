@@ -1,11 +1,11 @@
-﻿# ⌨️ Shortcut Master
+# ⌨️ Shortcut Master
 
 > **Master Real Keyboard Shortcuts Through High-Speed Arcade Combat & Muscle Memory Engineering.**
 
 [![Tests](https://img.shields.io/badge/Tests-8%20Passed-brightgreen.svg)](tests/)
 [![Lines of Code](https://img.shields.io/badge/Prod%20LOC-60%2C000%2B-blue.svg)](js/)
 [![Node.js](https://img.shields.io/badge/Node.js-v20%2B-green.svg)](https://nodejs.org/)
-[![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](README.md)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED.svg)](Dockerfile)
 
 ---
@@ -211,4 +211,4 @@ The embedded HTTP server provides lightweight JSON REST endpoints for health che
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Proprietary License. All rights reserved. No open-source license granted.
