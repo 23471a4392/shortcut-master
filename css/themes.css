@@ -1,0 +1,363 @@
+/**
+ * SHORTCUT MASTER - AAA Gaming Humanized Theme Engine
+ * Rich tactile arcade palettes, authentic mechanical keycap tokens, 
+ * immersive ambient cyber underglow, and high-contrast Battle Station light mode.
+ */
+
+/* ==================== CYBER ARCADE (DARK GAMING - DEFAULT) ==================== */
+:root,
+[data-mode="dark"],
+[data-theme="emerald"] {
+  --color-bg-master: #07090e;
+  --color-bg-surface: #0e121a;
+  --color-bg-card: #131823;
+  --color-bg-card-hover: #1a2232;
+  --color-bg-input: #0a0e16;
+
+  --color-border: #222c3f;
+  --color-border-hover: #384869;
+  --color-border-glow: rgba(0, 240, 138, 0.35);
+
+  --color-accent: #00f08a;
+  --color-accent-hover: #00ff94;
+  --color-accent-glow: rgba(0, 240, 138, 0.4);
+  --color-accent-rgb: 0, 240, 138;
+  --color-accent-secondary: #00e5ff;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --color-success: #00f08a;
+  --color-error: #ff3366;
+  --color-warning: #ffb703;
+  --color-info: #00e5ff;
+  --color-btn-text: #05140b;
+
+  /* Tactile Mechanical Keycap Tokens */
+  --kb-housing-bg: #0a0d14;
+  --kb-housing-border: #1e2638;
+  --kb-key-bg: linear-gradient(180deg, #242c3d 0%, #171d2a 100%);
+  --kb-key-border: #333e56;
+  --kb-key-text: #f1f5f9;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  --kb-key-shadow: 0 3px 0 #0d121c, 0 4px 8px rgba(0, 0, 0, 0.6);
+  --kb-key-active-bg: linear-gradient(180deg, #00f08a 0%, #00c770 100%);
+  --kb-key-active-text: #031409;
+  --kb-key-active-glow: 0 0 16px rgba(0, 240, 138, 0.7), 0 1px 0 #009954;
+
+  /* Gaming HUD & Cards */
+  --card-glass-bg: rgba(19, 24, 35, 0.75);
+  --card-glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --card-glow-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* ==================== HYPERDRIVE AMBER (MECHA GAMING) ==================== */
+[data-mode="dark"][data-theme="amber"],
+[data-theme="amber"] {
+  --color-bg-master: #0a0805;
+  --color-bg-surface: #141009;
+  --color-bg-card: #1c160e;
+  --color-bg-card-hover: #292014;
+  --color-bg-input: #0f0b06;
+
+  --color-border: #3b2e1a;
+  --color-border-hover: #574426;
+  --color-border-glow: rgba(255, 183, 3, 0.4);
+
+  --color-accent: #ffb703;
+  --color-accent-hover: #ffc32b;
+  --color-accent-glow: rgba(255, 183, 3, 0.45);
+  --color-accent-rgb: 255, 183, 3;
+  --color-accent-secondary: #fb8500;
+
+  --color-text-primary: #fffbeb;
+  --color-text-secondary: #d97706;
+  --color-text-muted: #92400e;
+
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #ffb703;
+  --color-info: #fbbf24;
+  --color-btn-text: #190c00;
+
+  --kb-housing-bg: #0f0b06;
+  --kb-housing-border: #2e2313;
+  --kb-key-bg: linear-gradient(180deg, #2d2315 0%, #1f180d 100%);
+  --kb-key-border: #4a3920;
+  --kb-key-text: #fef3c7;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  --kb-key-shadow: 0 3px 0 #100b05, 0 4px 8px rgba(0, 0, 0, 0.6);
+  --kb-key-active-bg: linear-gradient(180deg, #ffb703 0%, #e09f00 100%);
+  --kb-key-active-text: #190c00;
+  --kb-key-active-glow: 0 0 16px rgba(255, 183, 3, 0.7), 0 1px 0 #b37f00;
+
+  --card-glass-bg: rgba(28, 22, 14, 0.78);
+  --card-glass-border: 1px solid rgba(255, 183, 3, 0.12);
+  --card-glow-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* ==================== SYNTH VIOLET (CYBERPUNK NEON) ==================== */
+[data-mode="dark"][data-theme="violet"],
+[data-theme="violet"] {
+  --color-bg-master: #0a0614;
+  --color-bg-surface: #120b22;
+  --color-bg-card: #1b1130;
+  --color-bg-card-hover: #271945;
+  --color-bg-input: #0e081a;
+
+  --color-border: #3b2466;
+  --color-border-hover: #583799;
+  --color-border-glow: rgba(192, 132, 252, 0.4);
+
+  --color-accent: #c084fc;
+  --color-accent-hover: #d8b4fe;
+  --color-accent-glow: rgba(192, 132, 252, 0.45);
+  --color-accent-rgb: 192, 132, 252;
+  --color-accent-secondary: #f472b6;
+
+  --color-text-primary: #faf5ff;
+  --color-text-secondary: #c084fc;
+  --color-text-muted: #8b5cf6;
+
+  --color-success: #00f08a;
+  --color-error: #f43f5e;
+  --color-warning: #f59e0b;
+  --color-info: #c084fc;
+  --color-btn-text: #17072e;
+
+  --kb-housing-bg: #0e081a;
+  --kb-housing-border: #2c1a4d;
+  --kb-key-bg: linear-gradient(180deg, #2b1a4a 0%, #1c1033 100%);
+  --kb-key-border: #4c2f82;
+  --kb-key-text: #f5f3ff;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  --kb-key-shadow: 0 3px 0 #100820, 0 4px 8px rgba(0, 0, 0, 0.6);
+  --kb-key-active-bg: linear-gradient(180deg, #c084fc 0%, #a855f7 100%);
+  --kb-key-active-text: #17072e;
+  --kb-key-active-glow: 0 0 18px rgba(192, 132, 252, 0.7), 0 1px 0 #7e22ce;
+
+  --card-glass-bg: rgba(27, 17, 48, 0.78);
+  --card-glass-border: 1px solid rgba(192, 132, 252, 0.14);
+  --card-glow-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* ==================== OBSIDIAN CARBON (STEALTH MECH) ==================== */
+[data-mode="dark"][data-theme="carbon"],
+[data-theme="carbon"] {
+  --color-bg-master: #070709;
+  --color-bg-surface: #101014;
+  --color-bg-card: #17171d;
+  --color-bg-card-hover: #22222a;
+  --color-bg-input: #0b0b0e;
+
+  --color-border: #292934;
+  --color-border-hover: #404052;
+  --color-border-glow: rgba(255, 255, 255, 0.25);
+
+  --color-accent: #00e5ff;
+  --color-accent-hover: #33ecff;
+  --color-accent-glow: rgba(0, 229, 255, 0.35);
+  --color-accent-rgb: 0, 229, 255;
+  --color-accent-secondary: #00f08a;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+
+  --color-success: #00f08a;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #00e5ff;
+  --color-btn-text: #05191d;
+
+  --kb-housing-bg: #0b0b0e;
+  --kb-housing-border: #22222b;
+  --kb-key-bg: linear-gradient(180deg, #272733 0%, #1a1a22 100%);
+  --kb-key-border: #3b3b4d;
+  --kb-key-text: #f1f5f9;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  --kb-key-shadow: 0 3px 0 #0f0f14, 0 4px 8px rgba(0, 0, 0, 0.6);
+  --kb-key-active-bg: linear-gradient(180deg, #00e5ff 0%, #00b4cc 100%);
+  --kb-key-active-text: #05191d;
+  --kb-key-active-glow: 0 0 16px rgba(0, 229, 255, 0.7), 0 1px 0 #008899;
+
+  --card-glass-bg: rgba(23, 23, 29, 0.78);
+  --card-glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --card-glow-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* ==================== FROST BATTLESTATION (LIGHT GAMING MODE) ==================== */
+[data-mode="light"],
+[data-mode="light"][data-theme="emerald"] {
+  --color-bg-master: #eef2f6;
+  --color-bg-surface: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #f7fafc;
+  --color-bg-input: #f1f5f9;
+
+  --color-border: #d4dce7;
+  --color-border-hover: #b8c6d8;
+  --color-border-glow: rgba(5, 150, 105, 0.25);
+
+  --color-accent: #059669;
+  --color-accent-hover: #047857;
+  --color-accent-glow: rgba(5, 150, 105, 0.25);
+  --color-accent-rgb: 5, 150, 105;
+  --color-accent-secondary: #0284c7;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #64748b;
+
+  --color-success: #059669;
+  --color-error: #e11d48;
+  --color-warning: #d97706;
+  --color-info: #0284c7;
+  --color-btn-text: #ffffff;
+
+  /* White Mechanical Keycaps on Crisp Rig */
+  --kb-housing-bg: #e2e8f0;
+  --kb-housing-border: #cbd5e1;
+  --kb-key-bg: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  --kb-key-border: #cbd5e1;
+  --kb-key-text: #0f172a;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --kb-key-shadow: 0 3px 0 #94a3b8, 0 4px 6px rgba(0, 0, 0, 0.12);
+  --kb-key-active-bg: linear-gradient(180deg, #059669 0%, #047857 100%);
+  --kb-key-active-text: #ffffff;
+  --kb-key-active-glow: 0 0 14px rgba(5, 150, 105, 0.5), 0 1px 0 #065f46;
+
+  --card-glass-bg: #ffffff;
+  --card-glass-border: 1px solid #e2e8f0;
+  --card-glow-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-mode="light"][data-theme="amber"] {
+  --color-bg-master: #faf6eb;
+  --color-bg-surface: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #fffbeb;
+  --color-bg-input: #fef3c7;
+
+  --color-border: #fcd34d;
+  --color-border-hover: #f59e0b;
+  --color-border-glow: rgba(217, 119, 6, 0.25);
+
+  --color-accent: #d97706;
+  --color-accent-hover: #b45309;
+  --color-accent-glow: rgba(217, 119, 6, 0.25);
+  --color-accent-rgb: 217, 119, 6;
+  --color-accent-secondary: #ea580c;
+
+  --color-text-primary: #1c1917;
+  --color-text-secondary: #78350f;
+  --color-text-muted: #92400e;
+
+  --color-success: #059669;
+  --color-error: #dc2626;
+  --color-warning: #d97706;
+  --color-info: #b45309;
+  --color-btn-text: #ffffff;
+
+  --kb-housing-bg: #fef3c7;
+  --kb-housing-border: #fde68a;
+  --kb-key-bg: linear-gradient(180deg, #ffffff 0%, #fef9c3 100%);
+  --kb-key-border: #fcd34d;
+  --kb-key-text: #1c1917;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --kb-key-shadow: 0 3px 0 #d97706, 0 4px 6px rgba(0, 0, 0, 0.12);
+  --kb-key-active-bg: linear-gradient(180deg, #d97706 0%, #b45309 100%);
+  --kb-key-active-text: #ffffff;
+  --kb-key-active-glow: 0 0 14px rgba(217, 119, 6, 0.5), 0 1px 0 #92400e;
+
+  --card-glass-bg: #ffffff;
+  --card-glass-border: 1px solid #fde68a;
+  --card-glow-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-mode="light"][data-theme="violet"] {
+  --color-bg-master: #f7f5ff;
+  --color-bg-surface: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #faf5ff;
+  --color-bg-input: #ede9fe;
+
+  --color-border: #ddd6fe;
+  --color-border-hover: #c4b5fd;
+  --color-border-glow: rgba(124, 58, 237, 0.25);
+
+  --color-accent: #7c3aed;
+  --color-accent-hover: #6d28d9;
+  --color-accent-glow: rgba(124, 58, 237, 0.25);
+  --color-accent-rgb: 124, 58, 237;
+  --color-accent-secondary: #db2777;
+
+  --color-text-primary: #1e1b4b;
+  --color-text-secondary: #5b21b6;
+  --color-text-muted: #6d28d9;
+
+  --color-success: #059669;
+  --color-error: #e11d48;
+  --color-warning: #d97706;
+  --color-info: #7c3aed;
+  --color-btn-text: #ffffff;
+
+  --kb-housing-bg: #ede9fe;
+  --kb-housing-border: #ddd6fe;
+  --kb-key-bg: linear-gradient(180deg, #ffffff 0%, #f5f3ff 100%);
+  --kb-key-border: #ddd6fe;
+  --kb-key-text: #1e1b4b;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --kb-key-shadow: 0 3px 0 #a78bfa, 0 4px 6px rgba(0, 0, 0, 0.12);
+  --kb-key-active-bg: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%);
+  --kb-key-active-text: #ffffff;
+  --kb-key-active-glow: 0 0 14px rgba(124, 58, 237, 0.5), 0 1px 0 #5b21b6;
+
+  --card-glass-bg: #ffffff;
+  --card-glass-border: 1px solid #ddd6fe;
+  --card-glow-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+[data-mode="light"][data-theme="carbon"] {
+  --color-bg-master: #f1f5f9;
+  --color-bg-surface: #ffffff;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #f8fafc;
+  --color-bg-input: #e2e8f0;
+
+  --color-border: #cbd5e1;
+  --color-border-hover: #94a3b8;
+  --color-border-glow: rgba(15, 23, 42, 0.2);
+
+  --color-accent: #0f172a;
+  --color-accent-hover: #020617;
+  --color-accent-glow: rgba(15, 23, 42, 0.2);
+  --color-accent-rgb: 15, 23, 42;
+  --color-accent-secondary: #0284c7;
+
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748b;
+
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-warning: #d97706;
+  --color-info: #0284c7;
+  --color-btn-text: #ffffff;
+
+  --kb-housing-bg: #e2e8f0;
+  --kb-housing-border: #cbd5e1;
+  --kb-key-bg: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  --kb-key-border: #cbd5e1;
+  --kb-key-text: #0f172a;
+  --kb-key-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+  --kb-key-shadow: 0 3px 0 #64748b, 0 4px 6px rgba(0, 0, 0, 0.12);
+  --kb-key-active-bg: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  --kb-key-active-text: #ffffff;
+  --kb-key-active-glow: 0 0 14px rgba(15, 23, 42, 0.4), 0 1px 0 #000000;
+
+  --card-glass-bg: #ffffff;
+  --card-glass-border: 1px solid #cbd5e1;
+  --card-glow-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
