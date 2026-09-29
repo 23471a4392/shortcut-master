@@ -58,14 +58,14 @@ export const BOSSES_DATA = [
       {
         name: 'Phase 1: The Tab Swarm',
         healthThreshold: 120,
-        dialog: "Close and open tabs before your browser crashes!",
-        allowedShortcuts: ['ctrl-t', 'ctrl-w', 'ctrl-tab', 'ctrl-l', 'ctrl-r']
+        dialog: "Master the address bar, reloads, and downloads before your browser crashes!",
+        allowedShortcuts: ['ctrl-l', 'ctrl-r', 'ctrl-d', 'ctrl-j', 'ctrl-f']
       },
       {
         name: 'Phase 2: The Lost Session',
         healthThreshold: 60,
-        dialog: "I closed your most important tab! Can your fingers resurrect it?!",
-        allowedShortcuts: ['ctrl-shift-t', 'ctrl-shift-tab', 'ctrl-shift-r', 'ctrl-d', 'ctrl-j']
+        dialog: "I threw search chaos at you! Use your bookmarks, history, and print controls!",
+        allowedShortcuts: ['ctrl-h', 'ctrl-shift-r', 'ctrl-d', 'ctrl-j', 'ctrl-f']
       }
     ],
     xpReward: 400
@@ -123,13 +123,13 @@ export const BOSSES_DATA = [
         name: 'Phase 1: High Velocity Mix',
         healthThreshold: 200,
         dialog: "Let us see if you can switch between editing and navigation without pause!",
-        allowedShortcuts: ['ctrl-s', 'ctrl-z', 'ctrl-t', 'home', 'end', 'ctrl-arrow-left', 'ctrl-b', 'ctrl-i']
+        allowedShortcuts: ['ctrl-s', 'ctrl-z', 'ctrl-y', 'home', 'end', 'ctrl-arrow-left', 'ctrl-b', 'ctrl-i']
       },
       {
         name: 'Phase 2: Overclocked Core',
         healthThreshold: 100,
         dialog: "FULL POWER! Triple-key combinations unleashed!",
-        allowedShortcuts: ['ctrl-shift-t', 'ctrl-shift-esc', 'ctrl-shift-p', 'ctrl-shift-arrow-left', 'ctrl-shift-r', 'shift-alt-arrow-down', 'win-shift-s']
+        allowedShortcuts: ['ctrl-shift-p', 'ctrl-shift-i', 'ctrl-shift-arrow-left', 'ctrl-shift-r', 'shift-alt-arrow-down', 'ctrl-shift-c', 'ctrl-shift-v']
       }
     ],
     xpReward: 1000

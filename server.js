@@ -58,7 +58,11 @@ function sendJson(res, statusCode, payload) {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Cache-Control': 'no-cache'
+    'Cache-Control': 'no-cache',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'SAMEORIGIN',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'X-XSS-Protection': '1; mode=block'
   });
   res.end(json);
 }
@@ -72,16 +76,37 @@ const server = http.createServer((req, res) => {
     res.writeHead(204, {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type'
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'SAMEORIGIN'
     });
     res.end();
     return;
   }
 
-  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
-  const pathname = parsedUrl.pathname;
+  let pathname;
+  try {
+    const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    pathname = parsedUrl.pathname;
+  } catch (urlErr) {
+    sendJson(res, 400, { error: 'Bad Request: Malformed URL' });
+    return;
+  }
 
   // ==================== REST API ROUTES ====================
+
+  // GET /favicon.ico
+  if (pathname === '/favicon.ico') {
+    const svgFavicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2300f08a"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>`;
+    res.writeHead(200, {
+      'Content-Type': 'image/svg+xml',
+      'Cache-Control': 'public, max-age=86400',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'SAMEORIGIN'
+    });
+    res.end(svgFavicon);
+    return;
+  }
 
   // GET /api/health
   if (pathname === '/api/health') {
@@ -126,8 +151,17 @@ const server = http.createServer((req, res) => {
 
   // ==================== STATIC FILE DELIVERY ====================
 
+  // Safely decode pathname to prevent URIError crash
+  let decodedPath;
+  try {
+    decodedPath = decodeURIComponent(pathname);
+  } catch (uriErr) {
+    sendJson(res, 400, { error: 'Bad Request: Malformed URI path encoding' });
+    return;
+  }
+
   // Resolve safe filesystem path
-  let safePath = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[\/\\])+/, '');
+  let safePath = path.normalize(decodedPath).replace(/^(\.\.[\/\\])+/, '');
   if (safePath === '/' || safePath === '\\' || safePath === '') {
     safePath = 'index.html';
   } else if (safePath.startsWith('/') || safePath.startsWith('\\')) {
@@ -152,7 +186,12 @@ const server = http.createServer((req, res) => {
           if (indexErr) {
             sendJson(res, 404, { error: 'Not Found' });
           } else {
-            res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+            res.writeHead(200, {
+              'Content-Type': 'text/html; charset=utf-8',
+              'X-Content-Type-Options': 'nosniff',
+              'X-Frame-Options': 'SAMEORIGIN',
+              'Referrer-Policy': 'strict-origin-when-cross-origin'
+            });
             res.end(content);
           }
         });
@@ -169,7 +208,10 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, {
       'Content-Type': contentType,
       'Content-Length': stats.size,
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600'
+      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=3600',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'SAMEORIGIN',
+      'Referrer-Policy': 'strict-origin-when-cross-origin'
     });
 
     const readStream = fs.createReadStream(filePath);

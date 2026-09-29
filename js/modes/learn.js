@@ -49,11 +49,9 @@ export class LearnScreen {
           source: 'learn'
         });
         state.addXp(15, 'Practiced in Learn Sandbox');
-      } else {
-        if (combo.keys.length > 0) {
-          sound.wrong();
-          this.testStatus = 'fail';
-        }
+      } else if (!combo.isModifierOnly && combo.keys.length > 0) {
+        sound.wrong();
+        this.testStatus = 'fail';
       }
       this.updateSandboxFeedback();
     });

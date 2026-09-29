@@ -394,7 +394,8 @@ export const SHORTCUTS_DATA = [
     realWorldExample: 'You are reading an article and want to look up a term in a new tab.',
     difficulty: 'easy',
     relatedShortcuts: ['ctrl-w', 'ctrl-shift-t'],
-    isRestricted: false
+    isRestricted: true,
+    restrictionNote: 'Browser-reserved hotkey. Handled directly by your browser window manager.'
   },
   {
     id: 'ctrl-w',
@@ -409,7 +410,8 @@ export const SHORTCUTS_DATA = [
     realWorldExample: 'You finished reading a recipe and want to close the tab without reaching for the tiny "x" button.',
     difficulty: 'easy',
     relatedShortcuts: ['ctrl-t', 'ctrl-shift-t'],
-    isRestricted: false
+    isRestricted: true,
+    restrictionNote: 'Browser tab close hotkey. Intercepted directly by Chrome/Firefox/Edge.'
   },
   {
     id: 'ctrl-shift-t',
@@ -424,7 +426,8 @@ export const SHORTCUTS_DATA = [
     realWorldExample: 'You accidentally closed your airline booking confirmation page. Press Ctrl+Shift+T to rescue it!',
     difficulty: 'hard',
     relatedShortcuts: ['ctrl-t', 'ctrl-w'],
-    isRestricted: false
+    isRestricted: true,
+    restrictionNote: 'Browser session undo hotkey. Intercepted directly by the browser.'
   },
   {
     id: 'ctrl-tab',
@@ -439,7 +442,8 @@ export const SHORTCUTS_DATA = [
     realWorldExample: 'You have 5 research sources open side by side and are cross-checking data.',
     difficulty: 'medium',
     relatedShortcuts: ['ctrl-shift-tab'],
-    isRestricted: false
+    isRestricted: true,
+    restrictionNote: 'Browser tab switcher hotkey. Handled directly by laptop browser.'
   },
   {
     id: 'ctrl-shift-tab',
@@ -454,7 +458,8 @@ export const SHORTCUTS_DATA = [
     realWorldExample: 'Stepping back to the previous tab in your browser.',
     difficulty: 'hard',
     relatedShortcuts: ['ctrl-tab'],
-    isRestricted: false
+    isRestricted: true,
+    restrictionNote: 'Browser reverse tab switcher hotkey. Handled directly by laptop browser.'
   },
   {
     id: 'ctrl-l',

@@ -3,9 +3,9 @@
  * Displays comprehensive player statistics, category breakdowns, reaction times, and mastery matrix.
  */
 
-import { state } from '../engine/state.js';
+import { state, LEVEL_TIERS } from '../engine/state.js';
 import { SHORTCUTS_DATA, SHORTCUT_CATEGORIES } from '../data/shortcuts.js';
-import { ICONS } from '../engine/icons.js';
+import { ICONS, getTierEmblemSvg } from '../engine/icons.js';
 
 export class ProgressScreen {
   constructor(container, navigateFn) {
@@ -70,6 +70,42 @@ export class ProgressScreen {
               <span class="metric-val">${stats.highestStreak}</span>
               <span class="metric-lbl">Longest Combo Streak</span>
               <small>Current streak: ${state.data.currentStreak}</small>
+            </div>
+          </div>
+        </section>
+
+        <!-- Operator Tier Progression Ladder -->
+        <section class="tier-ladder-section">
+          <div class="ladder-header-row">
+            <span class="ladder-section-title">GLOBAL OPERATOR TIER HIERARCHY</span>
+            <span class="current-xp-counter">Total Operator XP: <strong>${state.data.xp} XP</strong></span>
+          </div>
+
+          <div class="tier-milestones-row">
+            ${LEVEL_TIERS.map(t => {
+              const isAchieved = state.data.level >= t.level;
+              const isCurrent = state.data.level === t.level;
+              return `
+                <div class="tier-milestone-step ${isAchieved ? 'achieved' : ''} ${isCurrent ? 'current-step' : ''}">
+                  <div class="tier-step-crest" style="border-color: ${t.color};">
+                    ${getTierEmblemSvg(t.tierName, 24)}
+                  </div>
+                  <span class="tier-step-name" style="color: ${isAchieved ? t.color : 'var(--color-text-muted)'};">${t.tierName}</span>
+                  <span class="tier-step-xp">${t.minXp} XP</span>
+                </div>
+              `;
+            }).join('<div class="tier-connector-line"></div>')}
+          </div>
+
+          <div class="tier-active-progress-wrap">
+            <div class="tier-active-meta">
+              <span class="active-tier-name">Current Rank: <strong style="color: ${tier.color};">${tier.title}</strong></span>
+              <span class="next-tier-target">
+                ${nextTier ? `Next Promotion: <strong style="color: ${nextTier.color};">${nextTier.title}</strong> (${lvlProgress.neededXp - lvlProgress.currentXp} XP remaining)` : 'MAX OPERATOR TIER ACHIEVED!'}
+              </span>
+            </div>
+            <div class="progress-track large-track">
+              <div class="progress-fill" style="width: ${lvlProgress.percent}%; background: linear-gradient(90deg, var(--color-accent), ${tier.color});"></div>
             </div>
           </div>
         </section>

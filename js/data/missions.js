@@ -237,13 +237,13 @@ export const MISSIONS_DATA = [
   {
     id: 'm-2-8',
     chapterId: 'ch-2',
-    title: 'Rapid Tab Hopper',
-    scenario: 'You have three reference documents side by side. Switch to the next tab to the right.',
-    targetShortcutId: 'ctrl-tab',
-    hint: 'Cycle tabs forward with Control + Tab.',
+    title: 'Instant Address Navigator',
+    scenario: 'You need to quickly navigate to a new site without touching your mouse. Focus the browser URL address bar immediately.',
+    targetShortcutId: 'ctrl-l',
+    hint: 'L = Location / Link. Hold Control and press L.',
     xpReward: 130,
     difficulty: 'medium',
-    simulatedOutput: 'Switched to next tab: "API Reference v2".'
+    simulatedOutput: 'Browser address bar highlighted: ready for typing.'
   },
   {
     id: 'm-2-9',

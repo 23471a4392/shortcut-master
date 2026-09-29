@@ -920,6 +920,706 @@
   margin-left: 6px;
 }
 
+/* ==================== PRACTICE ENHANCEMENTS: LIVE HUD & DETAILED SOLUTION ==================== */
+
+.topbar-left-group, .topbar-right-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.session-mode-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.finish-report-btn {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.finish-report-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent-glow);
+}
+
+.drill-session-progress-strip {
+  margin-bottom: 16px;
+  background: var(--color-bg-surface);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+}
+
+.progress-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.progress-step-text {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.session-score-pill {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-accent);
+  background: rgba(var(--color-accent-rgb), 0.12);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--color-bg-card);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-track.large-track {
+  height: 10px;
+  border-radius: 5px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+/* Live Keystroke Detector on Card */
+.live-keystroke-panel {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.live-ks-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+  animation: pulseLight 1s infinite alternate;
+}
+
+@keyframes pulseLight {
+  from { opacity: 0.4; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1.15); }
+}
+
+.live-ks-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  letter-spacing: 0.6px;
+}
+
+.live-ks-badge {
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  padding: 4px 12px;
+  border-radius: 6px;
+  min-width: 180px;
+  text-align: center;
+  transition: all 0.12s ease;
+}
+
+.live-ks-badge.has-active-input {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: rgba(var(--color-accent-rgb), 0.1);
+  box-shadow: 0 0 14px var(--color-accent-glow);
+}
+
+.live-kbd {
+  display: inline-block;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 2px 0 var(--color-accent);
+}
+
+.live-placeholder {
+  color: var(--color-text-muted);
+  font-size: 11px;
+  font-style: italic;
+}
+
+/* Detailed Wrong Answer Banner */
+.feedback-fail-detailed {
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.12);
+}
+
+.fail-banner-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fail-alert-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(244, 63, 94, 0.2);
+  color: var(--color-error);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fail-alert-text strong {
+  display: block;
+  font-size: 14px;
+  color: var(--color-error);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.fail-alert-text span {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.solution-comparison-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: var(--color-bg-surface);
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.comparison-card {
+  flex: 1;
+  text-align: center;
+}
+
+.comp-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.6px;
+}
+
+.comp-keyset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.comparison-divider {
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+.kbd-wrong {
+  background: rgba(244, 63, 94, 0.18);
+  border: 1px solid var(--color-error);
+  color: #fda4af;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.kbd-correct {
+  background: rgba(0, 240, 138, 0.15);
+  border: 1px solid var(--color-accent);
+  color: #a7f3d0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 0 10px rgba(0, 240, 138, 0.2);
+}
+
+.solution-tip-box {
+  background: rgba(245, 158, 11, 0.1);
+  border-left: 3px solid #f59e0b;
+  padding: 8px 12px;
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #fde68a;
+}
+
+.fail-control-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-retry-drill {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-retry-drill:hover {
+  background: var(--color-bg-card-hover);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.btn-next-drill {
+  background: var(--color-accent);
+  border: none;
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-next-drill:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 14px var(--color-accent-glow);
+}
+
+.auto-advance-track {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.auto-advance-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--color-accent);
+}
+
+/* ==================== PRACTICE PERFORMANCE REPORT & TIER LADDER ==================== */
+
+.practice-report-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 6px;
+}
+
+.report-header-banner {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.report-header-banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-accent), transparent);
+}
+
+.report-badge-pill {
+  display: inline-block;
+  background: rgba(var(--color-accent-rgb), 0.12);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+
+.report-title {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.report-subtitle {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.report-grade-badge {
+  width: 72px;
+  height: 72px;
+  border: 3px solid;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-surface);
+  flex-shrink: 0;
+}
+
+.grade-letter {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.grade-label {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* Tier Ladder Progression */
+.tier-ladder-section {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.ladder-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.ladder-section-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: 0.6px;
+}
+
+.current-xp-counter {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.current-xp-counter strong {
+  color: var(--color-accent);
+}
+
+.tier-milestones-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.tier-milestone-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 64px;
+  position: relative;
+}
+
+.tier-step-crest {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-surface);
+  transition: all 0.2s ease;
+}
+
+.tier-milestone-step.achieved .tier-step-crest {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+.tier-milestone-step.current-step .tier-step-crest {
+  transform: scale(1.15);
+  box-shadow: 0 0 18px var(--color-accent-glow);
+}
+
+.tier-step-name {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.tier-step-xp {
+  font-size: 9px;
+  color: var(--color-text-muted);
+}
+
+.tier-connector-line {
+  flex: 1;
+  height: 2px;
+  background: var(--color-border);
+  min-width: 14px;
+}
+
+.tier-active-progress-wrap {
+  margin-top: 16px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.tier-active-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.active-tier-name strong {
+  font-weight: 800;
+}
+
+.next-tier-target {
+  color: var(--color-text-secondary);
+}
+
+/* Stats Overview Grid */
+.report-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+}
+
+.report-stat-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--color-text-primary);
+  font-family: 'Fira Code', monospace;
+}
+
+.stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+/* Breakdown Table */
+.report-table-section {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.table-section-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.report-table-wrap {
+  overflow-x: auto;
+}
+
+.report-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.report-history-table th {
+  background: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.report-history-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.row-correct {
+  background: rgba(0, 240, 138, 0.03);
+}
+
+.row-wrong {
+  background: rgba(244, 63, 94, 0.03);
+}
+
+.table-kbd {
+  display: inline-block;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+}
+
+.table-kbd.kbd-success {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: rgba(var(--color-accent-rgb), 0.1);
+}
+
+.table-kbd.kbd-fail {
+  border-color: var(--color-error);
+  color: var(--color-error);
+  background: rgba(244, 63, 94, 0.1);
+}
+
+.badge-status-ok {
+  color: var(--color-accent);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-status-err {
+  color: var(--color-error);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.report-actions-bar {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.report-btn {
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Responsive Shrink on Small Screens */
+@media (max-width: 640px) {
+  .topbar-left-group, .topbar-right-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .practice-topbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .solution-comparison-grid {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .comparison-divider {
+    transform: rotate(90deg);
+  }
+  .fail-control-buttons {
+    flex-direction: column;
+  }
+  .report-header-banner {
+    flex-direction: column;
+    text-align: center;
+    gap: 14px;
+  }
+}
+
 /* ==================== MISSIONS SCREEN ==================== */
 
 .missions-dashboard {

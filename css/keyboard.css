@@ -187,6 +187,10 @@
   .keyboard-dock {
     padding: 6px 8px 10px;
   }
+  .kb-visualizer-grid {
+    overflow-x: auto;
+    max-width: 100%;
+  }
   .kb-key {
     height: 26px;
     font-size: 9px;
@@ -195,4 +199,29 @@
   .key-1-2 { width: 34px; }
   .key-1-5 { width: 40px; }
   .key-2 { width: 48px; }
+}
+
+@media (max-width: 480px) {
+  .keyboard-dock {
+    padding: 4px 6px 8px;
+  }
+  .kb-visualizer-grid {
+    padding: 6px 4px;
+    gap: 2px;
+  }
+  .kb-row {
+    gap: 2px;
+  }
+  .kb-key {
+    height: 22px;
+    font-size: 8px;
+    border-radius: 3px;
+  }
+  .key-1 { width: 20px; }
+  .key-1-2 { width: 26px; }
+  .key-1-5 { width: 32px; }
+  .key-2 { width: 38px; }
+  .key-space { max-width: 140px; }
+  .kb-title-label { font-size: 9px; }
+  .kb-detected-badge { font-size: 9px; padding: 2px 6px; }
 }

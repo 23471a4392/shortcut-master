@@ -39,3 +39,54 @@ test('Keyboard Matching: matches combo against target shortcut', () => {
   assert.equal(keyboard.matchesShortcut(matchingCombo, target), true);
   assert.equal(keyboard.matchesShortcut(mismatchCombo, target), false);
 });
+
+test('Keyboard Chords: correctly identifies modifier-only state vs full chord', () => {
+  // Simulating user holding Ctrl key alone
+  const modOnlyEvent = {
+    ctrlKey: true,
+    altKey: false,
+    shiftKey: false,
+    metaKey: false,
+    key: 'Control',
+    code: 'ControlLeft'
+  };
+
+  const modCombo = keyboard.getCurrentCombo(modOnlyEvent);
+  assert.equal(modCombo.isModifierOnly, true);
+  assert.equal(modCombo.hasNonModifier, false);
+  assert.deepEqual(modCombo.keys, ['Control']);
+
+  // Simulating user striking 'C' with Ctrl held
+  const fullChordEvent = {
+    ctrlKey: true,
+    altKey: false,
+    shiftKey: false,
+    metaKey: false,
+    key: 'c',
+    code: 'KeyC'
+  };
+
+  const fullCombo = keyboard.getCurrentCombo(fullChordEvent);
+  assert.equal(fullCombo.isModifierOnly, false);
+  assert.equal(fullCombo.hasNonModifier, true);
+  assert.deepEqual(fullCombo.keys, ['Control', 'KeyC']);
+});
+
+test('Keyboard Isolation: ignores keystrokes inside input fields', () => {
+  let gameListenerFired = false;
+  keyboard.setGameListener(() => {
+    gameListenerFired = true;
+  });
+
+  const inputEvent = {
+    ctrlKey: true,
+    key: 'c',
+    code: 'KeyC',
+    target: { tagName: 'INPUT' },
+    preventDefault() {}
+  };
+
+  keyboard.handleKeyDown(inputEvent);
+  assert.equal(gameListenerFired, false, 'Keyboard listener must not fire when target is INPUT');
+  keyboard.clearGameListener();
+});

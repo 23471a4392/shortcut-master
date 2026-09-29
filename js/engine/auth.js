@@ -61,7 +61,26 @@ class AuthManager {
     } catch (e) {
       // Fallback
     }
-    return Buffer.from(password + '_salt').toString('base64');
+
+    if (typeof btoa !== 'undefined') {
+      try {
+        return btoa(encodeURIComponent(password + '_shortcut_master_salt_2026'));
+      } catch (err) {
+        return btoa(password + '_salt');
+      }
+    }
+
+    if (typeof Buffer !== 'undefined') {
+      return Buffer.from(password + '_salt').toString('base64');
+    }
+
+    let hash = 0;
+    const str = password + '_shortcut_master_salt_2026';
+    for (let i = 0; i < str.length; i++) {
+      hash = ((hash << 5) - hash) + str.charCodeAt(i);
+      hash |= 0;
+    }
+    return 'h_' + Math.abs(hash).toString(16);
   }
 
   getAllUsers() {

@@ -116,15 +116,50 @@ export const BOSS_CRESTS = {
 };
 
 /**
- * Rank Badges for Levels 1-7
+ * Rank & Tier Badges (Basic -> Bronze -> Silver -> Gold -> Platinum -> Diamond -> Apex)
  */
+export const TIER_CONFIG = {
+  1: { name: 'Basic', title: 'Basic Rookie', color: '#10b981', glow: 'rgba(16, 185, 129, 0.4)', iconLetter: 'B' },
+  2: { name: 'Bronze', title: 'Bronze Operator', color: '#cd7f32', glow: 'rgba(205, 127, 50, 0.45)', iconLetter: 'BZ' },
+  3: { name: 'Silver', title: 'Silver Specialist', color: '#94a3b8', glow: 'rgba(148, 163, 184, 0.5)', iconLetter: 'AG' },
+  4: { name: 'Gold', title: 'Gold Veteran', color: '#f59e0b', glow: 'rgba(245, 158, 11, 0.55)', iconLetter: 'AU' },
+  5: { name: 'Platinum', title: 'Platinum Master', color: '#06b6d4', glow: 'rgba(6, 182, 212, 0.6)', iconLetter: 'PT' },
+  6: { name: 'Diamond', title: 'Diamond Grandmaster', color: '#a855f7', glow: 'rgba(168, 85, 247, 0.65)', iconLetter: 'DM' },
+  7: { name: 'Apex', title: 'Apex Champion', color: '#ec4899', glow: 'rgba(236, 72, 153, 0.7)', iconLetter: 'AX' }
+};
+
 export function getRankBadgeSvg(level) {
-  const colors = ['#10b981', '#00f08a', '#38bdf8', '#f59e0b', '#ec4899', '#a855f7', '#fbbf24'];
-  const col = colors[Math.min(level - 1, colors.length - 1)];
+  const tier = TIER_CONFIG[level] || TIER_CONFIG[1];
+  const col = tier.color;
   return `
     <svg viewBox="0 0 36 36" width="34" height="34" fill="none">
-      <polygon points="18 2 32 9 32 27 18 34 4 27 4 9" stroke="${col}" stroke-width="2" fill="${col}18"/>
-      <text x="18" y="22" font-family="'Fira Code', monospace" font-size="12" font-weight="800" fill="${col}" text-anchor="middle">${level}</text>
+      <defs>
+        <filter id="tier-glow-${level}" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="${col}" flood-opacity="0.6"/>
+        </filter>
+      </defs>
+      <polygon points="18 2 32 9 32 27 18 34 4 27 4 9" stroke="${col}" stroke-width="2.2" fill="${col}22" filter="url(#tier-glow-${level})"/>
+      <circle cx="18" cy="18" r="8" fill="${col}33" stroke="${col}" stroke-width="1"/>
+      <text x="18" y="22" font-family="'Fira Code', monospace" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle">${level}</text>
+    </svg>
+  `;
+}
+
+export function getTierEmblemSvg(tierName, size = 28) {
+  const mapping = {
+    'Basic': { col: '#10b981', label: 'BASIC' },
+    'Bronze': { col: '#cd7f32', label: 'BRONZE' },
+    'Silver': { col: '#94a3b8', label: 'SILVER' },
+    'Gold': { col: '#f59e0b', label: 'GOLD' },
+    'Platinum': { col: '#06b6d4', label: 'PLATINUM' },
+    'Diamond': { col: '#a855f7', label: 'DIAMOND' },
+    'Apex': { col: '#ec4899', label: 'APEX' }
+  };
+  const t = mapping[tierName] || mapping['Basic'];
+  return `
+    <svg viewBox="0 0 32 32" width="${size}" height="${size}" fill="none">
+      <polygon points="16 2 28 8 28 24 16 30 4 24 4 8" stroke="${t.col}" stroke-width="2" fill="${t.col}22"/>
+      <path d="M11 16 L16 11 L21 16 L16 21 Z" fill="${t.col}"/>
     </svg>
   `;
 }

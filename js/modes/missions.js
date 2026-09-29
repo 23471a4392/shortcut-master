@@ -140,10 +140,8 @@ export class MissionsScreen {
 
       if (isMatch) {
         this.handleMissionSuccess(targetShortcut);
-      } else {
-        if (combo.keys.length > 0) {
-          this.handleMissionFail();
-        }
+      } else if (!combo.isModifierOnly && combo.keys.length > 0) {
+        this.handleMissionFail();
       }
     });
   }

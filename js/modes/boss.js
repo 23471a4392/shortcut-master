@@ -113,10 +113,8 @@ export class BossScreen {
       const isMatch = keyboard.matchesShortcut(combo, this.currentShortcut);
       if (isMatch) {
         this.handlePlayerStrike();
-      } else {
-        if (combo.keys.length > 0) {
-          this.handlePlayerMiss();
-        }
+      } else if (!combo.isModifierOnly && combo.keys.length > 0) {
+        this.handlePlayerMiss();
       }
     });
   }
@@ -165,9 +163,10 @@ export class BossScreen {
 
     this.showDamageNumber(damage, 'boss');
 
-    if (this.bossHealth <= 50 && this.currentPhaseIndex === 0 && this.activeBoss.phases.length > 1) {
-      this.currentPhaseIndex = 1;
-      this.showPhaseDialog(this.activeBoss.phases[1].dialog);
+    const nextPhase = this.activeBoss.phases[this.currentPhaseIndex + 1];
+    if (nextPhase && this.bossHealth <= nextPhase.healthThreshold) {
+      this.currentPhaseIndex++;
+      this.showPhaseDialog(nextPhase.dialog);
     }
 
     this.updateHealthBars();

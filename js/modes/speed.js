@@ -136,10 +136,8 @@ export class SpeedScreen {
 
       if (isMatch) {
         this.handleCorrect(reactionTime);
-      } else {
-        if (combo.keys.length > 0) {
-          this.handleWrong();
-        }
+      } else if (!combo.isModifierOnly && combo.keys.length > 0) {
+        this.handleWrong();
       }
     });
   }

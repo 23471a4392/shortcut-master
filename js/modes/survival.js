@@ -94,10 +94,8 @@ export class SurvivalScreen {
       const isMatch = keyboard.matchesShortcut(combo, this.currentShortcut);
       if (isMatch) {
         this.handleWaveSuccess();
-      } else {
-        if (combo.keys.length > 0) {
-          this.handleWaveMistake('Wrong combination entered!');
-        }
+      } else if (!combo.isModifierOnly && combo.keys.length > 0) {
+        this.handleWaveMistake('Wrong combination entered!');
       }
     });
   }

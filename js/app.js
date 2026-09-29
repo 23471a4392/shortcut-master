@@ -85,15 +85,22 @@ class App {
 
     // Check authentication state
     const currentUser = auth.getCurrentUser();
+    const initialRoute = this.getRouteFromHash();
     if (currentUser) {
       state.loadUser(currentUser);
       this.hideAuthPortal();
-      this.navigateTo('home');
+      this.navigateTo(initialRoute || 'home', true);
     } else {
       this.showAuthPortal();
     }
 
     this.updateHeaderHUD();
+  }
+
+  getRouteFromHash() {
+    if (typeof window === 'undefined') return 'home';
+    const hash = window.location.hash.replace(/^#\/?/, '').trim().toLowerCase();
+    return this.screens[hash] ? hash : null;
   }
 
   bindNavigation() {
@@ -113,10 +120,29 @@ class App {
         this.navigateTo('home');
       });
     }
+
+    // Browser Back / Forward History and Direct URL Hash changes
+    if (typeof window !== 'undefined') {
+      window.addEventListener('hashchange', () => {
+        const route = this.getRouteFromHash();
+        if (route && route !== this.currentScreenId) {
+          this.navigateTo(route, false);
+        }
+      });
+
+      window.addEventListener('popstate', () => {
+        const route = this.getRouteFromHash();
+        if (route && route !== this.currentScreenId) {
+          this.navigateTo(route, false);
+        }
+      });
+    }
   }
 
-  navigateTo(screenId) {
-    if (!this.screens[screenId]) return;
+  navigateTo(screenId, updateHash = true) {
+    if (!this.screens[screenId]) {
+      screenId = 'home';
+    }
 
     if (this.currentScreen && typeof this.currentScreen.unmount === 'function') {
       this.currentScreen.unmount();
@@ -135,7 +161,35 @@ class App {
     this.currentScreen = this.screens[screenId];
     this.currentScreen.mount();
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (updateHash && typeof window !== 'undefined') {
+      if (window.location.hash !== `#${screenId}`) {
+        window.history.pushState(null, '', `#${screenId}`);
+      }
+    }
+
+    const screenTitles = {
+      home: 'Command Center',
+      learn: 'Shortcut Database & Sandbox',
+      practice: 'Daily Drill Arena',
+      missions: 'Campaign Missions',
+      speed: 'Speed Rush Challenge',
+      survival: 'Survival Gauntlet',
+      memory: 'Blind Memory Trial',
+      boss: 'Boss Encounters',
+      achievements: 'Trophy Hall',
+      progress: 'Mastery & Stats',
+      settings: 'Audio & Preferences',
+      help: 'Hotkeys & Guide'
+    };
+
+    if (typeof document !== 'undefined') {
+      const titleSuffix = screenTitles[screenId] || 'Arcade';
+      document.title = `Shortcut Master — ${titleSuffix}`;
+    }
+
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     this.updateHeaderHUD();
   }
 
@@ -312,6 +366,23 @@ class App {
     // Render avatar selection chips in sign-up form
     this.renderAvatarPicker();
 
+    // Close Auth Portal Button (allows dismissing when switching accounts or opting into guest)
+    const closeAuthBtn = document.getElementById('btn-close-auth-portal');
+    if (closeAuthBtn) {
+      closeAuthBtn.addEventListener('click', () => {
+        sound.click();
+        if (auth.getCurrentUser()) {
+          this.hideAuthPortal();
+        } else {
+          // If no active session, initialize guest session
+          auth.guestLogin();
+          this.hideAuthPortal();
+          const target = this.getRouteFromHash() || 'home';
+          this.navigateTo(target);
+        }
+      });
+    }
+
     // Login Form Submission
     if (formLogin) {
       formLogin.addEventListener('submit', async (e) => {
@@ -324,7 +395,8 @@ class App {
           sound.correct();
           this.hideAuthPortal();
           this.showToast(`Welcome back, ${username}!`, 'info');
-          this.navigateTo('home');
+          const target = this.getRouteFromHash() || 'home';
+          this.navigateTo(target);
         } catch (err) {
           sound.wrong();
           this.showAuthAlert(err.message || 'Login failed. Please check credentials.');
@@ -344,7 +416,8 @@ class App {
           sound.levelUp();
           this.hideAuthPortal();
           this.showToast(`Operator profile created! Welcome, ${username}!`, 'achievement');
-          this.navigateTo('home');
+          const target = this.getRouteFromHash() || 'home';
+          this.navigateTo(target);
         } catch (err) {
           sound.wrong();
           this.showAuthAlert(err.message || 'Registration failed.');
@@ -360,7 +433,8 @@ class App {
         auth.guestLogin();
         this.hideAuthPortal();
         this.showToast('Playing as Guest. Progress will not be persisted across sessions.', 'info');
-        this.navigateTo('home');
+        const target = this.getRouteFromHash() || 'home';
+        this.navigateTo(target);
       });
     }
   }

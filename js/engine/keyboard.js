@@ -53,6 +53,29 @@ class KeyboardEngine {
   handleKeyDown(e) {
     if (!this.enabled) return;
 
+    // Isolate input fields and active modal dialogs
+    const target = e.target;
+    const isInputField = target && (
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.tagName === 'SELECT' ||
+      target.isContentEditable
+    );
+
+    if (isInputField) {
+      return; // Do not intercept typing in search boxes, login inputs, or forms
+    }
+
+    if (typeof document !== 'undefined') {
+      const authOverlay = document.getElementById('auth-portal-overlay');
+      const isAuthActive = authOverlay && !authOverlay.classList.contains('hidden');
+      const levelModal = document.getElementById('level-up-modal');
+      const isLevelActive = levelModal && !levelModal.classList.contains('hidden');
+      if (isAuthActive || isLevelActive) {
+        return; // Do not trigger gameplay while modals are open
+      }
+    }
+
     // Normalize modifiers
     this.activeModifiers.ctrl = e.ctrlKey || e.key === 'Control';
     this.activeModifiers.alt = e.altKey || e.key === 'Alt';
@@ -153,17 +176,22 @@ class KeyboardEngine {
     const keys = [];
     const displayTokens = [];
 
+    const isMac = typeof navigator !== 'undefined' && (
+      (navigator.platform && /Mac|iPod|iPhone|iPad/.test(navigator.platform)) ||
+      (navigator.userAgent && /Mac OS X/.test(navigator.userAgent))
+    );
+
     if (e.ctrlKey || this.activeModifiers.ctrl || this.pressedKeys.has('Control')) {
       keys.push('Control');
-      displayTokens.push('Ctrl');
+      displayTokens.push(isMac ? '⌃' : 'Ctrl');
     }
     if (e.metaKey || this.activeModifiers.meta || this.pressedKeys.has('Meta')) {
       keys.push('Meta');
-      displayTokens.push('Win');
+      displayTokens.push(isMac ? '⌘' : 'Win');
     }
     if (e.altKey || this.activeModifiers.alt || this.pressedKeys.has('Alt')) {
       keys.push('Alt');
-      displayTokens.push('Alt');
+      displayTokens.push(isMac ? '⌥' : 'Alt');
     }
     if (e.shiftKey || this.activeModifiers.shift || this.pressedKeys.has('Shift')) {
       keys.push('Shift');
@@ -171,6 +199,8 @@ class KeyboardEngine {
     }
 
     const nonModCode = this.getNonModifierKey(e);
+    const isModifierOnly = !nonModCode;
+
     if (nonModCode) {
       if (!keys.includes(nonModCode)) keys.push(nonModCode);
       const displayLabel = this.formatDisplayKey(nonModCode, e);
@@ -182,7 +212,9 @@ class KeyboardEngine {
       displayTokens,
       displayString: displayTokens.join(' + '),
       rawCode: nonModCode,
-      rawKey: e.key
+      rawKey: e.key,
+      isModifierOnly,
+      hasNonModifier: !isModifierOnly
     };
   }
 
@@ -223,9 +255,17 @@ class KeyboardEngine {
     // Check count of keys
     if (combo.keys.length !== targetKeys.length) return false;
 
-    // Match every key with loose normalization (Equal vs Plus, etc.)
+    const isMac = typeof navigator !== 'undefined' && (
+      (navigator.platform && /Mac|iPod|iPhone|iPad/.test(navigator.platform)) ||
+      (navigator.userAgent && /Mac OS X/.test(navigator.userAgent))
+    );
+
+    // Match every key with loose normalization (Equal vs Plus, Cmd for Ctrl on Mac, etc.)
     return targetKeys.every(tKey => {
       if (combo.keys.includes(tKey)) return true;
+
+      // On Mac, allow Meta (Cmd) for Control shortcuts if target requires Control
+      if (isMac && tKey === 'Control' && combo.keys.includes('Meta')) return true;
 
       // Handle aliases
       if (tKey === 'Equal' && (combo.keys.includes('Equal') || combo.rawKey === '=' || combo.rawKey === '+')) return true;

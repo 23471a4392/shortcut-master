@@ -69,10 +69,8 @@ export class MemoryScreen {
       const isMatch = keyboard.matchesShortcut(combo, this.currentShortcut);
       if (isMatch) {
         this.handleBlindSuccess();
-      } else {
-        if (combo.keys.length > 0) {
-          this.handleBlindFail();
-        }
+      } else if (!combo.isModifierOnly && combo.keys.length > 0) {
+        this.handleBlindFail();
       }
     });
   }

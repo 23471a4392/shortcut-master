@@ -12,13 +12,13 @@ import { auth } from './auth.js';
 const STORAGE_KEY = 'shortcut_master_save_v1';
 
 export const LEVEL_TIERS = [
-  { level: 1, title: 'Keyboard Rookie', minXp: 0, maxXp: 500, icon: getRankBadgeSvg(1) },
-  { level: 2, title: 'Shortcut Learner', minXp: 500, maxXp: 1200, icon: getRankBadgeSvg(2) },
-  { level: 3, title: 'Speed User', minXp: 1200, maxXp: 2200, icon: getRankBadgeSvg(3) },
-  { level: 4, title: 'Power User', minXp: 2200, maxXp: 3600, icon: getRankBadgeSvg(4) },
-  { level: 5, title: 'Keyboard Expert', minXp: 3600, maxXp: 5500, icon: getRankBadgeSvg(5) },
-  { level: 6, title: 'Shortcut Master', minXp: 5500, maxXp: 8000, icon: getRankBadgeSvg(6) },
-  { level: 7, title: 'Keyboard Legend', minXp: 8000, maxXp: Infinity, icon: getRankBadgeSvg(7) }
+  { level: 1, tierName: 'Basic', title: 'Basic Rookie', minXp: 0, maxXp: 500, color: '#10b981', icon: getRankBadgeSvg(1) },
+  { level: 2, tierName: 'Bronze', title: 'Bronze Operator', minXp: 500, maxXp: 1500, color: '#cd7f32', icon: getRankBadgeSvg(2) },
+  { level: 3, tierName: 'Silver', title: 'Silver Specialist', minXp: 1500, maxXp: 3000, color: '#94a3b8', icon: getRankBadgeSvg(3) },
+  { level: 4, tierName: 'Gold', title: 'Gold Veteran', minXp: 3000, maxXp: 5500, color: '#f59e0b', icon: getRankBadgeSvg(4) },
+  { level: 5, tierName: 'Platinum', title: 'Platinum Master', minXp: 5500, maxXp: 9000, color: '#06b6d4', icon: getRankBadgeSvg(5) },
+  { level: 6, tierName: 'Diamond', title: 'Diamond Grandmaster', minXp: 9000, maxXp: 14000, color: '#a855f7', icon: getRankBadgeSvg(6) },
+  { level: 7, tierName: 'Apex', title: 'Apex Legend', minXp: 14000, maxXp: Infinity, color: '#ec4899', icon: getRankBadgeSvg(7) }
 ];
 
 const DEFAULT_STATE = {
