@@ -219,14 +219,20 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, HOST, () => {
-  console.log(`========================================================`);
-  console.log(`⚡ SHORTCUT MASTER PRODUCTION SERVER RUNNING`);
-  console.log(`🎮 Game URL:    http://localhost:${PORT}`);
-  console.log(`🩺 Health API:  http://localhost:${PORT}/api/health`);
-  console.log(`📊 Metrics API: http://localhost:${PORT}/api/metrics`);
-  console.log(`🏆 Leaderboard: http://localhost:${PORT}/api/leaderboard`);
-  console.log(`========================================================`);
-});
+const isTestMode = process.env.NODE_ENV === 'test' ||
+  process.execArgv.some(a => a.includes('test')) ||
+  process.argv.some(a => a.includes('test'));
+
+if (!isTestMode) {
+  server.listen(PORT, HOST, () => {
+    console.log(`========================================================`);
+    console.log(`⚡ SHORTCUT MASTER PRODUCTION SERVER RUNNING`);
+    console.log(`🎮 Game URL:    http://localhost:${PORT}`);
+    console.log(`🩺 Health API:  http://localhost:${PORT}/api/health`);
+    console.log(`📊 Metrics API: http://localhost:${PORT}/api/metrics`);
+    console.log(`🏆 Leaderboard: http://localhost:${PORT}/api/leaderboard`);
+    console.log(`========================================================`);
+  });
+}
 
 export default server;

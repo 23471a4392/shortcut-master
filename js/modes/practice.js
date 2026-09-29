@@ -147,8 +147,8 @@ export class PracticeScreen {
       sound.correct();
     }
 
-    const baseScore = 20;
-    const speedBonus = reactionTime < 1000 ? 10 : 0;
+    const baseScore = 40;
+    const speedBonus = reactionTime < 1200 ? 25 : 0;
     const earnedXp = (baseScore + speedBonus) * comboMult;
     this.sessionXpEarned += earnedXp;
 
@@ -270,6 +270,14 @@ export class PracticeScreen {
     keyboard.clearGameListener();
     keyboard.clearHighlights();
     this.isShowingReport = true;
+
+    // Award Session Completion Bonus
+    if (this.sessionHistory.length >= 3 && this.sessionCorrect > 0) {
+      const completionBonus = this.sessionHistory.length >= 20 ? 300 : (this.sessionHistory.length >= 10 ? 150 : 75);
+      state.addXp(completionBonus, `Practice Set Bonus (${this.sessionCorrect}/${this.sessionHistory.length} correct)`);
+      this.sessionXpEarned += completionBonus;
+    }
+
     sound.levelUp();
     this.renderReport();
   }

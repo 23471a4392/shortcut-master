@@ -238,11 +238,27 @@ export class LearnScreen {
     if (!this.activeShortcut) return '';
 
     if (this.activeShortcut.isRestricted) {
+      if (this.testStatus === 'success') {
+        return `
+          <div class="sandbox-status status-success">
+            <span class="sandbox-status-icon">${ICONS.check}</span>
+            <div class="status-msg">
+              <strong>SAFE TRIGGER EXECUTED!</strong> Simulated <code>${this.activeShortcut.displayKeys.join(' + ')}</code>! (+15 XP)
+            </div>
+          </div>
+        `;
+      }
       return `
         <div class="sandbox-status status-restricted">
           <span class="sandbox-status-icon">${ICONS.windows}</span>
           <div class="status-msg">
-            <strong>Operating System Shortcut:</strong> This key combination is handled directly by your OS.
+            <strong>Browser / OS-Protected Hotkey:</strong>
+            <p style="margin: 4px 0 8px 0; font-size: 12px; color: #fef08a;">
+              Pressing <code>${this.activeShortcut.displayKeys.join(' + ')}</code> physically would close your browser tab or switch windows. Use Safe Trigger below:
+            </p>
+            <button type="button" class="btn-primary btn-learn-safe-trigger" id="btn-learn-safe-trigger" style="font-size: 12px; padding: 6px 14px; cursor: pointer;">
+              ⚡ Safe Trigger Simulation (+15 XP)
+            </button>
           </div>
         </div>
       `;
@@ -401,5 +417,21 @@ export class LearnScreen {
         }
       });
     });
+
+    const simBtn = this.container.querySelector('#btn-learn-safe-trigger');
+    if (simBtn) {
+      simBtn.addEventListener('click', () => {
+        sound.correct();
+        this.testStatus = 'success';
+        state.recordResult({
+          shortcutId: this.activeShortcut.id,
+          category: this.activeShortcut.category,
+          correct: true,
+          source: 'learn'
+        });
+        state.addXp(15, `Practiced in Learn: ${this.activeShortcut.name}`);
+        this.updateSandboxFeedback();
+      });
+    }
   }
 }

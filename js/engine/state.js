@@ -12,13 +12,13 @@ import { auth } from './auth.js';
 const STORAGE_KEY = 'shortcut_master_save_v1';
 
 export const LEVEL_TIERS = [
-  { level: 1, tierName: 'Basic', title: 'Basic Rookie', minXp: 0, maxXp: 500, color: '#10b981', icon: getRankBadgeSvg(1) },
-  { level: 2, tierName: 'Bronze', title: 'Bronze Operator', minXp: 500, maxXp: 1500, color: '#cd7f32', icon: getRankBadgeSvg(2) },
-  { level: 3, tierName: 'Silver', title: 'Silver Specialist', minXp: 1500, maxXp: 3000, color: '#94a3b8', icon: getRankBadgeSvg(3) },
-  { level: 4, tierName: 'Gold', title: 'Gold Veteran', minXp: 3000, maxXp: 5500, color: '#f59e0b', icon: getRankBadgeSvg(4) },
-  { level: 5, tierName: 'Platinum', title: 'Platinum Master', minXp: 5500, maxXp: 9000, color: '#06b6d4', icon: getRankBadgeSvg(5) },
-  { level: 6, tierName: 'Diamond', title: 'Diamond Grandmaster', minXp: 9000, maxXp: 14000, color: '#a855f7', icon: getRankBadgeSvg(6) },
-  { level: 7, tierName: 'Apex', title: 'Apex Legend', minXp: 14000, maxXp: Infinity, color: '#ec4899', icon: getRankBadgeSvg(7) }
+  { level: 1, tierName: 'Basic', title: 'Basic Rookie', minXp: 0, maxXp: 150, color: '#10b981', icon: getRankBadgeSvg(1) },
+  { level: 2, tierName: 'Bronze', title: 'Bronze Operator', minXp: 150, maxXp: 450, color: '#cd7f32', icon: getRankBadgeSvg(2) },
+  { level: 3, tierName: 'Silver', title: 'Silver Specialist', minXp: 450, maxXp: 900, color: '#94a3b8', icon: getRankBadgeSvg(3) },
+  { level: 4, tierName: 'Gold', title: 'Gold Veteran', minXp: 900, maxXp: 1600, color: '#f59e0b', icon: getRankBadgeSvg(4) },
+  { level: 5, tierName: 'Platinum', title: 'Platinum Master', minXp: 1600, maxXp: 2600, color: '#06b6d4', icon: getRankBadgeSvg(5) },
+  { level: 6, tierName: 'Diamond', title: 'Diamond Grandmaster', minXp: 2600, maxXp: 4000, color: '#a855f7', icon: getRankBadgeSvg(6) },
+  { level: 7, tierName: 'Apex', title: 'Apex Legend', minXp: 4000, maxXp: Infinity, color: '#ec4899', icon: getRankBadgeSvg(7) }
 ];
 
 const DEFAULT_STATE = {
@@ -72,6 +72,7 @@ const DEFAULT_STATE = {
 class StateManager {
   constructor() {
     this.data = this.load();
+    this.updateLevel();
     this.ensureDailyChallenge();
   }
 
@@ -103,12 +104,14 @@ class StateManager {
     }
 
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        const normalized = this.normalizeState(parsed);
-        if (user) normalized.playerName = user.username;
-        return normalized;
+      if (typeof localStorage !== 'undefined') {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          const normalized = this.normalizeState(parsed);
+          if (user) normalized.playerName = user.username;
+          return normalized;
+        }
       }
     } catch (e) {
       console.warn('Could not load saved state, falling back to default', e);
@@ -128,6 +131,7 @@ class StateManager {
     if (user) {
       this.data.playerName = user.username;
     }
+    this.updateLevel();
     this.ensureDailyChallenge();
     this.save();
     bus.emit('state:updated', this.data);
@@ -135,7 +139,9 @@ class StateManager {
 
   save() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(this.data));
+      }
       auth.saveCurrentUserData(this.data);
       bus.emit('state:saved', this.data);
     } catch (e) {
@@ -207,15 +213,29 @@ class StateManager {
   getLevelProgress() {
     const current = this.getCurrentTier();
     const next = this.getNextTier();
-    if (!next) return { percent: 100, currentXp: this.data.xp, neededXp: current.minXp };
+    if (!next) {
+      return {
+        percent: 100,
+        currentXp: this.data.xp,
+        neededXp: current.minXp,
+        totalForNext: current.minXp,
+        remainingXp: 0,
+        currentTier: current,
+        nextTier: null
+      };
+    }
     const xpInLevel = this.data.xp - current.minXp;
     const xpRequired = next.minXp - current.minXp;
     const percent = Math.min(100, Math.max(0, Math.round((xpInLevel / xpRequired) * 100)));
+    const remainingXp = Math.max(0, next.minXp - this.data.xp);
     return {
       percent,
       currentXp: xpInLevel,
       neededXp: xpRequired,
-      totalForNext: next.minXp
+      totalForNext: next.minXp,
+      remainingXp,
+      currentTier: current,
+      nextTier: next
     };
   }
 

@@ -160,35 +160,35 @@ export const MISSIONS_DATA = [
   {
     id: 'm-2-1',
     chapterId: 'ch-2',
-    title: 'Spur-of-the-Moment Search',
-    scenario: 'While reading an article about quantum computing, you encounter an unfamiliar term. Open a new browser tab without leaving this page.',
-    targetShortcutId: 'ctrl-t',
-    hint: 'New Tab starts with T. Control + T.',
+    title: 'In-Page Needle in a Haystack',
+    scenario: 'While reviewing a lengthy 40-page financial statement, you need to jump directly to the paragraph mentioning "EBITDA". Open the find bar instantly.',
+    targetShortcutId: 'ctrl-f',
+    hint: 'Find on page starts with F: Control + F.',
     xpReward: 110,
     difficulty: 'easy',
-    simulatedOutput: 'New tab created & cursor focused in address bar.'
+    simulatedOutput: 'Find bar opened: 6 occurrences of "EBITDA" found.'
   },
   {
     id: 'm-2-2',
     chapterId: 'ch-2',
-    title: 'Tab Overload Cleanup',
-    scenario: 'You have 34 browser tabs open and your computer fans are screaming. Close the active, unnecessary tab instantly.',
-    targetShortcutId: 'ctrl-w',
-    hint: 'Wipe/Window tab close: Control + W.',
+    title: 'Audit Trail Recovery',
+    scenario: 'You visited an essential research link 2 hours ago but forgot the exact URL. Open your full browsing history log immediately.',
+    targetShortcutId: 'ctrl-h',
+    hint: 'History starts with H: Control + H.',
     xpReward: 110,
     difficulty: 'easy',
-    simulatedOutput: 'Active tab closed. Memory freed: 140MB.'
+    simulatedOutput: 'Browsing history drawer opened: displaying 142 recent visits.'
   },
   {
     id: 'm-2-3',
     chapterId: 'ch-2',
-    title: 'The Tab Resurrection',
-    scenario: 'Horror! You just accidentally closed the tab holding your flight confirmation itinerary! Reopen the closed tab immediately.',
-    targetShortcutId: 'ctrl-shift-t',
-    hint: 'Add Shift to the tab shortcut to reverse the closure. Control + Shift + T.',
-    xpReward: 150,
-    difficulty: 'hard',
-    simulatedOutput: 'Resurrected tab: "Flight Itinerary #AA-9421" fully restored!'
+    title: 'Reset Viewport Scale',
+    scenario: 'You zoomed in to 200% on a technical diagram and now everything is oversized. Reset the browser view back to 100% normal zoom.',
+    targetShortcutId: 'ctrl-zero',
+    hint: '0 returns zoom to normal: Control + 0.',
+    xpReward: 140,
+    difficulty: 'medium',
+    simulatedOutput: 'Browser zoom level restored to 100% default.'
   },
   {
     id: 'm-2-4',

@@ -9,7 +9,7 @@ import { sound } from './engine/audio.js';
 import { keyboard } from './engine/keyboard.js';
 import { bus } from './engine/bus.js';
 import { auth, USER_AVATARS } from './engine/auth.js';
-import { ICONS } from './engine/icons.js';
+import { ICONS, getTierEmblemSvg } from './engine/icons.js';
 
 // Screens
 import { HomeScreen } from './modes/home.js';
@@ -92,6 +92,25 @@ class App {
       this.navigateTo(initialRoute || 'home', true);
     } else {
       this.showAuthPortal();
+    }
+
+    // Safety protection against accidental Ctrl+W / tab closing
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeunload', (e) => {
+        if (state.data && (state.data.xp > 0 || state.data.stats.totalAttempts > 0)) {
+          e.preventDefault();
+          e.returnValue = '';
+          return '';
+        }
+      });
+    }
+
+    const hudLevelBtn = document.getElementById('hud-player-level');
+    if (hudLevelBtn) {
+      hudLevelBtn.addEventListener('click', () => {
+        sound.click();
+        this.navigateTo('progress');
+      });
     }
 
     this.updateHeaderHUD();
@@ -195,11 +214,51 @@ class App {
 
   updateHeaderHUD() {
     const lvlEl = document.getElementById('hud-player-level');
-    const xpEl = document.getElementById('hud-player-xp');
+    const lvlText = document.getElementById('hud-level-text');
+    const tierIconSlot = document.getElementById('hud-tier-icon-slot');
+    const xpVal = document.getElementById('hud-xp-val');
+    const xpSub = document.getElementById('hud-xp-sub');
+    const xpBar = document.getElementById('hud-xp-bar-fill');
     const streakEl = document.getElementById('hud-streak-count');
 
-    if (lvlEl) lvlEl.textContent = `LVL ${state.data.level}`;
-    if (xpEl) xpEl.textContent = `${state.data.xp} XP`;
+    const currentTier = state.getCurrentTier();
+    const progress = state.getLevelProgress();
+
+    if (tierIconSlot) {
+      tierIconSlot.innerHTML = getTierEmblemSvg(currentTier.tierName, 16);
+    }
+    if (lvlText) {
+      lvlText.textContent = `LVL ${state.data.level} • ${currentTier.tierName}`;
+    } else if (lvlEl) {
+      lvlEl.textContent = `LVL ${state.data.level} • ${currentTier.tierName}`;
+    }
+
+    if (lvlEl) {
+      lvlEl.style.borderColor = currentTier.color;
+      lvlEl.style.color = currentTier.color;
+      lvlEl.style.boxShadow = `0 0 10px ${currentTier.color}33`;
+    }
+
+    if (xpVal) {
+      xpVal.textContent = `${state.data.xp} XP`;
+    } else {
+      const xpEl = document.getElementById('hud-player-xp');
+      if (xpEl) xpEl.textContent = `${state.data.xp} XP`;
+    }
+
+    if (xpSub) {
+      if (progress.nextTier) {
+        xpSub.textContent = `(${progress.remainingXp} to ${progress.nextTier.tierName})`;
+      } else {
+        xpSub.textContent = '(MAX)';
+      }
+    }
+
+    if (xpBar) {
+      xpBar.style.width = `${progress.percent}%`;
+      xpBar.style.background = `linear-gradient(90deg, var(--color-accent), ${currentTier.color})`;
+    }
+
     if (streakEl) streakEl.textContent = `${state.data.currentStreak}`;
 
     // Update user profile pill

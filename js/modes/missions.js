@@ -269,6 +269,7 @@ export class MissionsScreen {
   renderMissionRunner() {
     const m = this.activeMission;
     const isDone = state.data.completedMissions.includes(m.id);
+    const targetShortcut = getShortcutById(m.targetShortcutId);
 
     this.container.innerHTML = `
       <div class="mission-play-container">
@@ -297,6 +298,21 @@ export class MissionsScreen {
             <p>Execute the required keyboard shortcut to solve this challenge!</p>
           </div>
 
+          ${targetShortcut && targetShortcut.isRestricted ? `
+            <div class="os-restricted-mission-banner">
+              <span class="os-banner-icon">${ICONS.windows}</span>
+              <div class="os-banner-text">
+                <strong>System Intercepted Shortcut:</strong> <code>${targetShortcut.displayKeys.join(' + ')}</code> is captured directly by Windows OS (locking screen or switching windows).
+                <span>Click the Safe Trigger button below to safely complete this challenge without disturbing your laptop!</span>
+              </div>
+            </div>
+            <div class="mission-safe-action-wrap">
+              <button type="button" class="btn-primary btn-safe-trigger" id="btn-safe-trigger-hotkey">
+                ⚡ Safe Trigger Simulation (${targetShortcut.displayKeys.join(' + ')})
+              </button>
+            </div>
+          ` : ''}
+
           <div id="mission-status-msg"></div>
           <div id="mission-hint-box"></div>
           <div id="mission-feedback-slot"></div>
@@ -320,6 +336,15 @@ export class MissionsScreen {
     const hintBtn = this.container.querySelector('#btn-reveal-mission-hint');
     if (hintBtn) {
       hintBtn.addEventListener('click', () => this.revealHint());
+    }
+
+    const safeTriggerBtn = this.container.querySelector('#btn-safe-trigger-hotkey');
+    if (safeTriggerBtn) {
+      safeTriggerBtn.addEventListener('click', () => {
+        if (!this.isProcessing && targetShortcut) {
+          this.handleMissionSuccess(targetShortcut);
+        }
+      });
     }
   }
 }
